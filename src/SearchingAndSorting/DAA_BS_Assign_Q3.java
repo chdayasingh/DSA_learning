@@ -2,7 +2,7 @@ package SearchingAndSorting;
 
 //    Given a sorted array A[1,..., n] such that elements are all distinct. Give an O(lg(n) time algorithm that finds out if there exists a 'k' such that A[k] = k. The algorithm returns 'k' if such an index exists, else -1.
 
-public class BS_Assign_Q3 {
+public class DAA_BS_Assign_Q3 {
     public static int algo(int[] arr, int startIndex, int endIndex){
         if(startIndex > endIndex){
             return -1;

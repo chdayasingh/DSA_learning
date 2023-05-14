@@ -3,7 +3,7 @@ package SearchingAndSorting;
 //2. Given a sorted array A[1,..., n] such that elements may not be distinct. The array is rotated around some random position. Modify binary search such that for a given 'key', it returns the index where 'key' is present (if it exists) in (log n) time.
 
 
-public class BS_Assign_Q2 {
+public class DAA_BS_Assign_Q2 {
 
     private static int indexOfPivot(int[] arr, int startIndex, int endIndex) {
         if(startIndex == endIndex){
