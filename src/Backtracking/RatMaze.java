@@ -39,6 +39,8 @@ public class RatMaze {
         boolean ans = ratInAMaze(maze, path, si, sj, di, dj);
         return ans;
     }
+
+    // No backtracking needed for path exist
     public static boolean ratInAMaze(int[][] maze, int[][] path, int i, int j, int di, int dj){
         // Base Case, if cell in invalid or blocked cell or we already cover
         if(i < 0 || i >= maze.length || j<0 || j>=maze.length || maze[i][j] == 0 || path[i][j] == 1){
@@ -62,6 +64,8 @@ public class RatMaze {
         }
         return false;
     }
+
+
 
 
 //    print all available paths
@@ -96,7 +100,7 @@ public class RatMaze {
         printAllPathsHelper(maze, path, i, j-1, di, dj);
 
         // reset the path for this coordinate
-        path[i][j] = 0;
+        path[i][j] = 0; // Backtracking step
     }
 
 
@@ -109,6 +113,7 @@ public class RatMaze {
 //        System.out.println(pathExist);
 
         printAllPaths(maze, 0,0, maze.length-1, maze.length-1);
+//        printAllPaths(maze, 0,0, 2, 1);
     }
 
 }

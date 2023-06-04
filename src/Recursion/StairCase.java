@@ -26,9 +26,11 @@ A child is running up a staircase with N steps, and can hop either 1 step, 2 ste
         int op1 = stairCase(n-1);
         map.put(n-1, op1);
 
+        // num of ways to climb stairs if i take 2 step
         int op2 = stairCase(n-2);
         map.put(n-2, op2);
 
+        // num of ways to climb stairs if i take 3 step
         int op3 = stairCase(n-3);
         map.put(n-3, op3);
 

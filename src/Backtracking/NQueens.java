@@ -1,7 +1,7 @@
 package Backtracking;
 
 public class NQueens {
-    public static void placeQueens(int n){
+    public static void placeNQueens(int n){
         int board[][] = new int[n][n];
 
         placeNQueens(board, n, 0);
@@ -28,7 +28,7 @@ public class NQueens {
                 // move to next row
                 placeNQueens(board, n, row + 1);
                 // reset board pos to zero
-                board[row][col] = 0;
+                board[row][col] = 0; // Backtracking step (backing to previous state)
             }
         }
     }
@@ -57,6 +57,6 @@ public class NQueens {
 
 
     public static void main(String[] args) {
-        placeQueens(5);
+        placeNQueens(4);
     }
 }
