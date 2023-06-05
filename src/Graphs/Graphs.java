@@ -34,7 +34,7 @@ public class Graphs {
         System.out.print("Depth First Traversal : ");
 
         // by writing only one call of dfs from 0 might be not print all vertices in case of disconnected graphs because it might happen disconnected component not call
-//        dfTraversalHelper(adjMatrix, visited, 0);
+//        dfTraversal(adjMatrix, visited, 0);
 
 //        to work for disconnected graph
         for(int i=0; i<adjMatrix.length; i++){
@@ -137,6 +137,7 @@ public class Graphs {
         }
         return false;
     }
+
 
 //    getPath - from starting vertex start traversing (in DFS or BFS) if we reach to end vertex then return the path(in arraylist) else return null
 
@@ -327,7 +328,7 @@ public class Graphs {
         // eg input1 - 6 5 0 1 0 2 0 3 1 4 2 5
         // eg input2 - 7 7 0 4 0 2 0 3 4 5 2 1 3 6 5 1
 
-        bfTraversal(adjMatrix);
+//        bfTraversal(adjMatrix);
 //        System.out.println(hasPathBFS(adjMatrix, sc.nextInt(), sc.nextInt()));
 
 //        System.out.println(getPathUsingDFS1(adjMatrix, sc.nextInt(), sc.nextInt()).toString());
@@ -340,6 +341,6 @@ public class Graphs {
 //        System.out.println(isConnectedNaive(adjMatrix));
 //        System.out.println(isConnected(adjMatrix));
 
-        System.out.println(numConnected(adjMatrix));
+//        System.out.println(numConnected(adjMatrix));
     }
 }
