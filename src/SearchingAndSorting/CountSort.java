@@ -2,6 +2,10 @@ package SearchingAndSorting;
 
 import java.util.*;
 
+// Non Comparison Based Sorting Algo
+// Use When Range is defined
+// Not In-place
+
 public class CountSort {
 
     // Non stable
@@ -20,6 +24,7 @@ public class CountSort {
         }
     }
 
+
     // Stable count sort - using commutative freq or prefix sum
     // TC- O(n+k), SC- O(n+K)
     public static void countSort(int[] arr, int max){
@@ -29,7 +34,7 @@ public class CountSort {
         for(int i: arr){
             freq[i]++;
         }
-        // Prefix sum / cummative frequency
+        // Prefix sum / cumulative frequency
         for(int i=1; i<freq.length; i++){
             freq[i] = freq[i] + freq[i-1];
         }
@@ -46,6 +51,7 @@ public class CountSort {
             arr[i] = output[i];
         }
     }
+
 
     public static void main(String[] args) {
         int[] arr = {5, 1, 4, 2, 4, 1, 2, 0};

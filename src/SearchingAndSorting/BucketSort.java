@@ -6,9 +6,14 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
+// Put all elms in b no. of buckets
+// Sort each bucket individually
+// Take out all elmts and join them
+
 public class BucketSort {
     // Bucket Sort algo varies according to the input
     // but concept are the same
+
 
     // Ques - Sort an array having numbers in range[0.0, 1.0) with uniform distn. Efficient way to sort
 

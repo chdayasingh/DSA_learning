@@ -2,12 +2,20 @@ package SearchingAndSorting;
 
 import java.util.Arrays;
 
+//Non Comparision Based
+// Digit by Digit Sorting, place value
+// from least significant digit to most significant digit
+
+
 public class RadixSort {
     private static int getMax(int[] arr){
         int max = Arrays.stream(arr).max().getAsInt();
         return max;
     }
 
+    // modified count sort for using in each iteration of radix sort
+    // T.C = O(n) for every n>10
+    // S.C = O(n)
     private static void countSort(int[] arr, int place){
         int[] freq = new int[10];
         int n = arr.length;
@@ -32,6 +40,8 @@ public class RadixSort {
         }
     }
 
+
+    // T.C = O(n*k)  where k is the no of digit
     public static void radixSort(int[] arr){
         int max = getMax(arr);   // n
 

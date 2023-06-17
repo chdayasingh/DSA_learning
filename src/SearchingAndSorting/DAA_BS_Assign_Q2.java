@@ -22,14 +22,10 @@ public class DAA_BS_Assign_Q2 {
         int pivotIndex = indexOfPivot(arr, 0, arr.length-1);
 //        System.out.println(pivotIndex);
 
-        if(arr[pivotIndex] == x){
-            return pivotIndex;
-        }
-
         int startIndex = 0;
         int endIndex = arr.length -1;
-        if(x > arr[pivotIndex] && x <= arr[endIndex]){
-            startIndex = pivotIndex+1;
+        if(x >= arr[pivotIndex] && x <= arr[endIndex]){
+            startIndex = pivotIndex;
         }
         else{
             endIndex = pivotIndex-1;

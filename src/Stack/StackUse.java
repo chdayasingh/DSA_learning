@@ -3,19 +3,20 @@ package Stack;
 public class StackUse {
     public static void main(String[] args) throws StackEmptyException, StackFullException {
 
-        StackUsingLL<Integer> s2 = new StackUsingLL<>();
-        System.out.println(s2.size);
-        s2.push(10);
-        s2.push(20);
-        s2.push(30);
-        System.out.println(s2.pop());
-        System.out.println(s2.pop());
-        System.out.println(s2.pop());
-        System.out.println(s2.pop());
+//        StackUsingLL<Integer> s2 = new StackUsingLL<>();
+//        System.out.println(s2.size);
+//        s2.push(10);
+//        s2.push(20);
+//        s2.push(30);
+//        System.out.println(s2.pop());
+//        System.out.println(s2.pop());
+//        System.out.println(s2.pop());
+//        System.out.println(s2.pop());
+//
+//        System.out.println(s2.size);
 
-        System.out.println(s2.size);
-
-//        StackUsingArray s1 = new StackUsingArray();
+        StackUsingArray s1 = new StackUsingArray();
+        System.out.println(s1.top());
 //
 //        int[] arr = {1,2,3,4,5};
 //

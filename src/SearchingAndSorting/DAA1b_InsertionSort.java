@@ -26,6 +26,7 @@ public class DAA1b_InsertionSort {
         }
         arr[j+1] = temp;
     }
+
     public static void insertion_sort(int[] arr){
         for(int i=1; i<arr.length; i++){
             insert(arr, i);

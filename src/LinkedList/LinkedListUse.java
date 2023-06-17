@@ -25,7 +25,7 @@ public class LinkedListUse {
         return head;
     }
 
-    public static void printLinkedList(SLLNode<Integer> head){
+    public static void print(SLLNode<Integer> head){
         SLLNode<Integer> temp = head;
         for(; temp != null; temp = temp.next){
             System.out.print(temp.data + " ");
@@ -97,9 +97,6 @@ public class LinkedListUse {
     }
 
     public static SLLNode<Integer> insertNodeR(SLLNode<Integer> head, int data, int pos){
-//        if(head == null){
-//            return null;
-//        }
         if(pos == 0 || head == null){
             SLLNode<Integer> newNode = new SLLNode<>(data);
             newNode.next = head;
@@ -111,6 +108,9 @@ public class LinkedListUse {
     }
 
     public static SLLNode<Integer> deleteNode(SLLNode<Integer> head, int pos){
+        if(head == null){
+            return head;
+        }
         if(pos == 0){  // edge case
             return head.next;
         }
@@ -120,7 +120,7 @@ public class LinkedListUse {
             count++;
             temp = temp.next;
         }
-        if(temp.next == null || temp == null){  // edge case
+        if( temp == null || temp.next == null){  // edge case
             return head;
         }
         temp.next = temp.next.next;
@@ -159,12 +159,6 @@ public class LinkedListUse {
             return head;
         }
         SLLNode<Integer> smallHead = reverseR(head.next);
-        // add current head to the tail of smallerHead(which is reversed list)
-//        Node<Integer> tail = smallHead;
-//        while(tail.next != null){
-//            tail = tail.next;
-//        }
-//        tail.next = head;
 
         head.next.next = head;
         head.next = null;
@@ -179,7 +173,7 @@ public class LinkedListUse {
     }
 
     // this method will be used by only reverseR1() method internally
-    private static PairOfHeadTail reverseUsingDoubleNode(SLLNode<Integer> head) {
+    public static PairOfHeadTail reverseUsingDoubleNode(SLLNode<Integer> head) {
         if(head == null || head.next == null){
             return new PairOfHeadTail(head,head);
         }

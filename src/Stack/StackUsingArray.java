@@ -17,7 +17,7 @@ public class StackUsingArray {
         return topIndex+1;
     }
     public void push(int elem) throws StackFullException {
-        if(topIndex >= data.length-1){
+        if(topIndex == data.length-1){
             increaseSizeOfData();
 //            throw new StackFullException();
         }
@@ -33,7 +33,11 @@ public class StackUsingArray {
         data = temp;
     }
 
-    public int top() {
+    public int top() throws StackEmptyException {
+        if(topIndex == -1){
+            // throw exception
+            throw new StackEmptyException();
+        }
         return data[topIndex];
     }
 

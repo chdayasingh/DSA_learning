@@ -3,16 +3,25 @@ package Stack;
 import java.util.Stack;
 
 public class StackUsingCollections {
-    public static void main(String[] args) {
-        Stack<Integer> s1 = new Stack<>();
-//        System.out.println(s1.peek());
-        System.out.println(s1.pop());
+    public static String reverseStringUsingStack(String str){
+        if (str == null){
+            throw new IllegalArgumentException();
+        }
 
-//        for(int i=1; i<=10; i++){
-//            s1.push(i);
-//            System.out.println(s1.size());
-////            System.out.println(i);
-//        }
-//        System.out.println(s1.peek());
+        Stack<Character> stack = new Stack<>();
+        StringBuffer revStr = new StringBuffer();
+        for(int i=0; i<str.length(); i++){
+            stack.push(str.charAt(i));
+        }
+        while(!stack.isEmpty()){
+            revStr.append(stack.pop());
+        }
+        return revStr.toString();
+    }
+
+    public static void main(String[] args) {
+//        Stack<Integer> s1 = new Stack<>();
+
+        System.out.println(reverseStringUsingStack("abcd"));
     }
 }

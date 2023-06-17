@@ -1,5 +1,6 @@
 package LinkedList;
 
+// Singly Node
 public class SLLNode<T>{
     // Properties
     public T data;

@@ -350,7 +350,7 @@ public class BTUse {
 
         ArrayList<SLLNode<Integer>> arr = btToLevelWiseLL(root);
         for(SLLNode<Integer> head: arr){
-            LinkedListUse.printLinkedList(head);
+            LinkedListUse.print(head);
         }
     }
 
