@@ -48,11 +48,9 @@ public class MinStepToOne {
             return prevResults[n];
         }
 
-        int subractByOne;
+        int subractByOne = minStepToOneDP(n-1, prevResults);;
         int divideByTwo = Integer.MAX_VALUE;
         int divideByThree = Integer.MAX_VALUE;
-
-        subractByOne = minStepToOneDP(n-1, prevResults);
 
         if(n%2 == 0){
             divideByTwo =  minStepToOneDP(n/2, prevResults);

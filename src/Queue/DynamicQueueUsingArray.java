@@ -1,5 +1,7 @@
 package Queue;
 
+import java.util.Arrays;
+
 public class DynamicQueueUsingArray {
     private int[] data;
     private int front,rear,size;
@@ -27,13 +29,9 @@ public class DynamicQueueUsingArray {
         System.out.println("]");
     }
 
-    // This method is only for visualization
-    public void printInsideArray(){
-        System.out.print("Inside Array : [ ");
-        for (int i : data){
-            System.out.print(i + " ");
-        }
-        System.out.println("]");
+    @Override
+    public String toString(){
+        return Arrays.toString(data);
     }
 
     public int size() {
@@ -86,7 +84,7 @@ public class DynamicQueueUsingArray {
         int temp = data[front];
         front = (front+1)%data.length;
         size--;
-        if(size == 0){
+        if(size == 0){ //Reseting front and rear
             front = -1;
             rear = -1;
         }

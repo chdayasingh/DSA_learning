@@ -3,9 +3,9 @@ package LinkedList;
 import java.util.Scanner;
 
 public class MyLinkedList {
-    private SLLNode<Integer> head;
+    private static SLLNode<Integer> head;
 //    private SLLNode<Integer> tail;
-    private int size;
+    private static int size;
 
     MyLinkedList(){
 
@@ -19,7 +19,7 @@ public class MyLinkedList {
 
         while (data != -1){
             SLLNode<Integer> current = new SLLNode<>(data);
-            this.size++;
+            size++;
             if(head == null){
                 head = current;
             } else {
@@ -29,20 +29,20 @@ public class MyLinkedList {
             data = sc.nextInt();
         }
         // updating head of the linkedlist obj
-        this.head = head;
+        MyLinkedList.head = head;
     }
 
     public int size(){
-        return this.size;
+        return size;
     }
 
     public boolean isEmpty(){
-        return this.head == null;
+        return head == null;
     }
 
 
     public void print(){
-        SLLNode<Integer> temp = this.head;
+        SLLNode<Integer> temp = head;
         for(; temp != null; temp = temp.next){
             System.out.print(temp.data + " ");
         }
@@ -50,7 +50,7 @@ public class MyLinkedList {
     }
 
     public void printR(){
-        printR(this.head);
+        printR(head);
     }
     private static void printR(SLLNode<Integer> head) {
         if(head == null){
@@ -63,19 +63,19 @@ public class MyLinkedList {
 
 
     public void addFirst(int data){
-        this.head = insertNode(this.head, data, 0);
-        this.size++;
+        head = insertNode(head, data, 0);
+        size++;
     }
     public void addLast(int data){
-        this.head = insertNode(this.head, data, this.size);
-        this.size++;
+        head = insertNode(head, data, size);
+        size++;
     }
     public void add(int data, int index){
-        if(index < 0 || index>=this.size){
+        if(index < 0 || index>= size){
             throw new IndexOutOfBoundsException("Invalid Index");
         }
-        this.head = insertNode(this.head, data, index);
-        this.size++;
+        head = insertNode(head, data, index);
+        size++;
     }
     private static SLLNode<Integer> insertNode(SLLNode<Integer> head, int data, int pos){
         // creating a new node with given data
@@ -104,7 +104,7 @@ public class MyLinkedList {
     }
 
     public int get(int index) throws Exception {
-        SLLNode<Integer> temp = this.head;
+        SLLNode<Integer> temp = head;
         int count = 0;
         while(temp != null && count<index){
             count++;
@@ -120,7 +120,7 @@ public class MyLinkedList {
         return get(0);
     }
     public int getLast() throws Exception{
-        return get(this.size-1);
+        return get(size-1);
     }
 
     public int removeFirst(){
@@ -131,12 +131,12 @@ public class MyLinkedList {
     }
     public int remove(int index){
         // index checking will eliminating head== null edge cases
-        if(index < 0 || index>=this.size){
+        if(index < 0 || index>= size){
             throw new IndexOutOfBoundsException("Invalid Index");
         }
 
         var dummy = new SLLNode<Integer>(0);
-        dummy.next = this.head;
+        dummy.next = head;
 
         SLLNode<Integer> prev = dummy;
 
@@ -145,8 +145,8 @@ public class MyLinkedList {
         }
         int data = prev.next.data;
         prev.next = prev.next.next;
-        this.size--;
-        this.head = dummy.next;
+        size--;
+        head = dummy.next;
         return data;
     }
 
@@ -155,7 +155,7 @@ public class MyLinkedList {
     }
 
     public int indexOf(int data){
-        SLLNode<Integer> temp = this.head;
+        SLLNode<Integer> temp = head;
         int count = 0;
         while(temp != null){
             if(temp.data == data){
@@ -176,7 +176,7 @@ public class MyLinkedList {
         SLLNode<Integer> slow = head; // target to reach at one before new head
 
         // to handle the case when k is greater than length
-        k = k % this.size;
+        k = k % size;
 
         for(int i=0; i<k; i++){
             fast = fast.next;
@@ -185,8 +185,8 @@ public class MyLinkedList {
             fast = fast.next;
             slow = slow.next;
         }
-        fast.next = this.head;
-        this.head = slow.next; // making new head;
+        fast.next = head;
+        head = slow.next; // making new head;
         slow.next = null;
     }
 
@@ -214,7 +214,7 @@ public class MyLinkedList {
 
     public void removeConsecutiveDuplicates1(){
         // checking the nextnode with current if there data are equal then skip nextnode
-        SLLNode<Integer> current = this.head;
+        SLLNode<Integer> current = head;
 
         while(current != null){
             SLLNode<Integer> nextNode = current.next;
@@ -232,7 +232,7 @@ public class MyLinkedList {
 
     // TODO: decrease the size as weil
     public void removeConsecutiveR(){
-        removeConsecutiveR(this.head);
+        removeConsecutiveR(head);
     }
 
     private static SLLNode<Integer> removeConsecutiveR(SLLNode<Integer> head){
@@ -248,7 +248,7 @@ public class MyLinkedList {
     }
 
     public void printReverse(){
-        printReverese(this.head);
+        printReverese(head);
         System.out.println();
     }
     private static void printReverese(SLLNode<Integer> head){
@@ -261,7 +261,7 @@ public class MyLinkedList {
 
 
     public boolean isPalindrome(){
-        if(this.head  == null){
+        if(head  == null){
             return true;
         }
         var mid = getMidNode();
@@ -272,7 +272,7 @@ public class MyLinkedList {
 
         head2 = reverseR(head2);
 
-        var c1 = this.head;
+        var c1 = head;
         var c2 = head2;
         while(c1 != null && c2!=null){
             if(c1.data != c2.data){
@@ -288,12 +288,12 @@ public class MyLinkedList {
     }
 
     private SLLNode<Integer> getMidNode(){
-        if(this.head == null){
+        if(head == null){
             return null;
         }
         // for even length give 1st middle
-        var slow = this.head;
-        var fast = this.head;
+        var slow = head;
+        var fast = head;
         while(fast.next != null && fast.next.next != null){
             slow = slow.next;
             fast = fast.next.next;
@@ -302,11 +302,11 @@ public class MyLinkedList {
     }
 
     public void reverse(){
-        if(this.head == null){
+        if(head == null){
             return;
         }
         SLLNode<Integer> prev = null;
-        SLLNode<Integer> curr = this.head;
+        SLLNode<Integer> curr = head;
 
         while(curr != null){
             SLLNode<Integer> fwd = curr.next;
@@ -314,11 +314,11 @@ public class MyLinkedList {
             prev = curr;
             curr = fwd;
         }
-        this.head = prev;
+        head = prev;
     }
 
     public void reverseR(){
-        this.head = reverseR(this.head);
+        head = reverseR(head);
     }
     private static SLLNode<Integer> reverseR(SLLNode<Integer> head){
         if(head == null || head.next == null){
@@ -332,7 +332,7 @@ public class MyLinkedList {
 
     public MyLinkedList createCopy() {
         MyLinkedList listCopy = new MyLinkedList();
-        SLLNode<Integer> curr = this.head;
+        SLLNode<Integer> curr = head;
         while(curr != null){
             listCopy.addLast(curr.data);
             curr = curr.next;
@@ -341,7 +341,7 @@ public class MyLinkedList {
     }
 
     public int getKthNodeFromEnd(int k){
-        if(k < 1 || k > this.size){
+        if(k < 1 || k > size){
             return Integer.MAX_VALUE;
         }
 //        int count = this.size - k;    // if we don't know the size , 1 scan takes to find size and another to find element
@@ -353,8 +353,8 @@ public class MyLinkedList {
 
 
         // in one scan;
-        var slow = this.head;
-        var fast = this.head;
+        var slow = head;
+        var fast = head;
 
         // slow and fast have seperated with distance (k-1)
         for(int i=0; i<k-1; i++){
@@ -369,7 +369,7 @@ public class MyLinkedList {
 
 
     public void mergeSort(){
-        this.head = mergeSort(this.head);
+        head = mergeSort(head);
     }
 
     private static SLLNode<Integer> getMidNode(SLLNode<Integer> head){

@@ -21,12 +21,14 @@ public class PQquestions {
     }
 
     public static ArrayList<Integer> getKSmallestElem(int[] arr, int k){
+        // maintaining maxPQ for first k elems
         PriorityQueue<Integer> pQueue = new PriorityQueue<>(Collections.reverseOrder());
 
         for(int i=0; i<k; i++){
             pQueue.add(arr[i]);
         }
         for(int i=k; i<arr.length; i++){
+            // if we found less elem than maxOfPQ then replace it
             if(arr[i] < pQueue.peek()) {
                 pQueue.poll();
                 pQueue.add(arr[i]);
@@ -58,8 +60,9 @@ public class PQquestions {
         return ans;
     }
 
-    //    Kth largest element
-    public static int kLargestElement(int[] arr, int k){
+    //    T.C = O(nlogk)
+    //    S.C = O(k)
+    public static int kthLargestElement(int[] arr, int k){
         // making a minheap
         PriorityQueue<Integer> minHeap = new PriorityQueue<>();
         // adding k elem to minHeap
@@ -100,8 +103,8 @@ public class PQquestions {
 
         while (!q.isEmpty()){
             int index = q.poll();
-            // if the first person's priority in queue is greater or equal to max priority then the person will get the ticket
-            if(arr[index] >= maxPQ.peek()){
+            // if the first person's priority in queue is equal to max priority then the person will get the ticket
+            if(arr[index] == maxPQ.peek()){
                 maxPQ.poll();
                 time++;
                 if(index == k){

@@ -40,6 +40,9 @@ public class QueueUsingLL<T> {
         }
         T temp = front.data;
         front = front.next;
+        if(front == null){
+            rear = null;
+        }
         size--;
         return temp;
     }

@@ -1,0 +1,21 @@
+// avl tree rotation
+
+10 root
+     20 newroot
+   15  30
+
+
+     20
+10        30
+  15
+
+
+
+          30  root
+    20  newroot
+10    25
+
+
+    20
+10       30
+       25

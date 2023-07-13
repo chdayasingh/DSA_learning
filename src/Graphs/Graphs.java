@@ -46,18 +46,49 @@ public class Graphs {
 
 //        System.out.println();
     }
+
+    // Helper function for dfTraversal
     private static void dfTraversal(int[][] adjMatrix, boolean[]visited, int currentVertex){
         System.out.print(currentVertex + " ");
         visited[currentVertex] = true; // after printing the vertex , mark that visited
 
         // finding the neighbour of current vertex by traversing that row in adj matrix
         for(int j=0; j< adjMatrix.length; j++){
-            if(adjMatrix[currentVertex][j] == 1 && visited[j] == false){
+            if(adjMatrix[currentVertex][j] == 1 && !visited[j]){
                 // if j is the neighbour and its unvisited then call recursion on neighbour
                 dfTraversal(adjMatrix, visited, j);
             }
         }
     }
+
+    public static void dfTraversalIterative(int[][] adjMatrix) {
+        boolean[] visited = new boolean[adjMatrix.length];
+        System.out.print("Depth First Traversal (Iterative): ");
+
+        for (int i = 0; i < adjMatrix.length; i++) {
+            if (!visited[i]) {
+                Stack<Integer> stack = new Stack<>();
+                stack.push(i);
+
+                while (!stack.isEmpty()) {
+                    int currentVertex = stack.pop();
+                    if (!visited[currentVertex]) {
+                        System.out.print(currentVertex + " ");
+                        visited[currentVertex] = true;
+
+                        for (int j = adjMatrix.length - 1; j >= 0; j--) {
+                            if (adjMatrix[currentVertex][j] == 1 && !visited[j]) {
+                                stack.push(j);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        System.out.println();
+    }
+
 
     //    TC = O(v^2)
     public static void bfTraversal(int[][] adjMatrix){
@@ -299,7 +330,7 @@ public class Graphs {
 
 
 //  count the number of connected groups of islands
-//A group of islands is said to be connected if we can reach from any given island to any other island in the same group
+//  A group of islands is said to be connected if we can reach from any given island to any other island in the same group
     public static int numConnected(int[][] adjMatrix){
         boolean[] visited = new boolean[adjMatrix.length];
 
@@ -316,17 +347,73 @@ public class Graphs {
         return count;
     }
 
+
+    public static void displayMenu(int[][] adjMatrix, Scanner sc) {
+        int choice;
+        do {
+            System.out.println("\n----- Graph Operations Menu -----");
+            System.out.println("1. Print Adjacency Matrix");
+            System.out.println("2. Add Edge");
+            System.out.println("3. Depth-First Traversal Recursive");
+            System.out.println("4. Depth-First Traversal Iterative");
+            System.out.println("5. Breadth-First Traversal");
+            System.out.println("0. Exit");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("----Adjacency_Matrix------");
+                    printAdjMatrix(adjMatrix);
+                    break;
+                case 2:
+                    System.out.print("Enter source vertex: ");
+                    int source = sc.nextInt();
+                    System.out.print("Enter destination vertex: ");
+                    int destination = sc.nextInt();
+                    adjMatrix[source][destination] = 1;
+                    adjMatrix[destination][source] = 1;
+                    break;
+                case 3:
+                    dfTraversal(adjMatrix);
+                    break;
+                case 4:
+                    dfTraversalIterative(adjMatrix);
+                    break;
+                case 5:
+                    bfTraversal(adjMatrix);
+                    break;
+                case 0:
+                    System.out.println("Exiting...");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        } while (choice != 0);
+    }
+
+
     public static void main(String[] args) {
+        System.out.println("Take input for Graph called: \nFor Hard code input, copy below input and paste - \n10 11\n0 1 0 2 0 3 1 4 1 5 1 9 2 4 2 6 2 7 3 6 3 8");
         Scanner sc = new Scanner(System.in);
+        System.out.println("Enter no. of vertex , no. of edges (separate by space) and give input");
         int v = sc.nextInt();
+//        System.out.println("Enter no. of edges");
         int e = sc.nextInt();
         int[][] adjMatrix = createAdjMatrix(v, e, sc);
-        System.out.println("----Adjacency_Matrix------");
-        printAdjMatrix(adjMatrix);
 
-        dfTraversal(adjMatrix);
+        displayMenu(adjMatrix, sc);
+
         // eg input1 - 6 5 0 1 0 2 0 3 1 4 2 5
         // eg input2 - 7 7 0 4 0 2 0 3 4 5 2 1 3 6 5 1
+        // 6 7 0 1 0 2 0 3 1 4 2 5 1 3 2 3
+
+
+//        System.out.println("----Adjacency_Matrix------");
+//        printAdjMatrix(adjMatrix);
+//
+//        dfTraversal(adjMatrix);
+
 
 //        bfTraversal(adjMatrix);
 //        System.out.println(hasPathBFS(adjMatrix, sc.nextInt(), sc.nextInt()));

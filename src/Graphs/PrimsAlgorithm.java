@@ -38,7 +38,7 @@ public class PrimsAlgorithm {
             weight[i] = Integer.MAX_VALUE;
         }
 
-        // looping v times
+        // iterating v times
         for(int i=0; i<v; i++){
             // finding unvisited minimum weight vertex
             int minVertex = minWeightVertex(weight, visited);

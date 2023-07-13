@@ -16,6 +16,15 @@ public class StackUsingArray {
     public int size(){
         return topIndex+1;
     }
+
+    public String toString(){
+        String stk = "[";
+        for(int i=0; i<=topIndex; i++){
+            stk += data[i] + " ";
+        }
+        return stk+"]";
+    }
+
     public void push(int elem) throws StackFullException {
         if(topIndex == data.length-1){
             increaseSizeOfData();

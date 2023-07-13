@@ -1,9 +1,7 @@
 package BinaryTree;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+import java.util.*;
+
 import LinkedList.*;
 
 public class BTUse {
@@ -29,9 +27,10 @@ public class BTUse {
         return root;
     }
 
+    // Recursive
     // improved (-1 means no child) but difficult to use for user
     public static BTNode<Integer> takeTreeInput1(Scanner sc){
-        System.out.println("Enter root data: ");
+//        System.out.println("Enter root data: ");
         int rootData = sc.nextInt();
         if(rootData == -1){
             return null;
@@ -76,6 +75,7 @@ public class BTUse {
             return null;
         }
         BTNode<Integer> root = new BTNode<>(rootData);
+        // Queue of all nodes pending children
         Queue<BTNode<Integer>> pendingNodes = new LinkedList<>();
         pendingNodes.add(root);
 
@@ -97,6 +97,33 @@ public class BTUse {
             }
         }
         return root;
+    }
+
+    public static void printTreePreOrder(BTNode<Integer> root) {
+        if(root == null){
+            return;
+        }
+        System.out.println(root.data);
+        printTreePreOrder(root.left);
+        printTreePreOrder(root.right);
+    }
+
+    public static void printTreePostOrder(BTNode<Integer> root) {
+        if(root == null){
+            return;
+        }
+        printTreePostOrder(root.left);
+        printTreePostOrder(root.right);
+        System.out.println(root.data);
+    }
+
+    public static void printTreeInOrder(BTNode<Integer> root) {
+        if(root == null){
+            return;
+        }
+        printTreeInOrder(root.left);
+        System.out.println(root.data);
+        printTreeInOrder(root.right);
     }
 
     public static void printDetailedTreeRecursive(BTNode<Integer> root) {
@@ -160,6 +187,7 @@ public class BTUse {
             }
             if(pendingNodes.isEmpty()){
                 System.out.println();
+                // or we can switch the queues
                 while(!pendingNodes1.isEmpty()){
                     pendingNodes.add(pendingNodes1.poll());
                 }
@@ -195,32 +223,35 @@ public class BTUse {
         }
         System.out.println();
     }
-    public static void printTreePreOrder(BTNode<Integer> root) {
+
+    // Easy implementation
+    public static List<List<Integer>> giveTreeAsLevelOrder(BTNode<Integer> root) {
         if(root == null){
-            return;
+            return null;
         }
-        System.out.println(root.data);
-        printTreePreOrder(root.left);
-        printTreePreOrder(root.right);
+        List<List<Integer>> wrapperList = new ArrayList<>();
+        Queue<BTNode<Integer>> pendingNodes = new LinkedList<>();
+        pendingNodes.add(root);
+
+        while(!pendingNodes.isEmpty()){
+            int numNodes = pendingNodes.size();
+            List<Integer> sublist = new ArrayList<>();
+
+            for(int i=0; i<numNodes; i++){
+                BTNode<Integer> front = pendingNodes.poll();
+                if(front.left != null){
+                    pendingNodes.add(front.left);
+                }
+                if(front.right != null){
+                    pendingNodes.add(front.right);
+                }
+                sublist.add(front.data);
+            }
+            wrapperList.add(sublist);
+        }
+        return wrapperList;
     }
 
-    public static void printTreePostOrder(BTNode<Integer> root) {
-        if(root == null){
-            return;
-        }
-        printTreePostOrder(root.left);
-        printTreePostOrder(root.right);
-        System.out.println(root.data);
-    }
-
-    public static void printTreeInOrder(BTNode<Integer> root) {
-        if(root == null){
-            return;
-        }
-        printTreeInOrder(root.left);
-        System.out.println(root.data);
-        printTreeInOrder(root.right);
-    }
 
     public static int numNodes(BTNode<Integer> root){
         if(root == null){
@@ -232,6 +263,13 @@ public class BTUse {
         return count;
     }
 
+    public static int sumOfNodes(BTNode<Integer> root){
+        if(root == null){
+            return 0;
+        }
+        return root.data + sumOfNodes(root.left) + sumOfNodes(root.right);
+    }
+
     public static int largest(BTNode<Integer> root){
         if(root == null){
             return Integer.MIN_VALUE;
@@ -240,6 +278,16 @@ public class BTUse {
         int rightLargest = largest(root.right);
 
         return Math.max(root.data, Math.max(leftLargest, rightLargest));
+    }
+
+    public static int smallest(BTNode<Integer> root) {
+        if(root == null){
+            return Integer.MAX_VALUE;
+        }
+        int leftSmallest = smallest(root.left);
+        int rightSmallest = smallest(root.right);
+
+        return Math.min(root.data, Math.min(leftSmallest, rightSmallest));
     }
 
     public static int nodesGreaterThanX(BTNode<Integer> root, int x) {
@@ -280,6 +328,15 @@ public class BTUse {
         printNodesAtDepthK(root.right, k-1);
     }
 
+    public static void replaceNodesWithDepth(BTNode<Integer> root, int depth){
+        if(root == null){
+            return;
+        }
+        root.data = depth;
+        replaceNodesWithDepth(root.left, depth+1);
+        replaceNodesWithDepth(root.right, depth+1);
+    }
+
     public static void printNodesWithoutSibling(BTNode<Integer> root) {
         if(root == null){
             return;
@@ -292,66 +349,6 @@ public class BTUse {
         }
         printNodesWithoutSibling(root.left);
         printNodesWithoutSibling(root.right);
-    }
-
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-//        BTNode<Integer> root = takeTreeInput(sc);
-//        BTNode<Integer> root = takeTreeInput1(sc);
-        BTNode<Integer> root = takeTreeInputLevelWise(); // Dummy value : 1 2 3 4 -1 -1 5 -1 -1 -1 -1
-
-//        BTNode<Integer> root = takeTreeInput1Better(sc, true, 0,false);
-//        printDetailedTreeRecursive(root);
-//        printDetailedTreeLevelWise(root);
-//        System.out.println("Num of Nodes in the Tree : " + numNodes(root));
-//        System.out.println("Num of leaf nodes : " + leafCount(root));
-
-//        printTreePreOrder(root);
-//        System.out.println();
-//        printTreePostOrder(root);
-//        printTreeInOrder(root);
-
-//        System.out.println("Largest in the Tree: "+ largest(root));
-//        System.out.println("Num of nodes greater than 5 : " + nodesGreaterThanX(root, 5));
-
-//        System.out.println("Tree Height : " + height(root));
-
-//        printNodesAtDepthK(root, 1);
-//        System.out.println();
-
-//        printNodesWithoutSibling(root);
-
-//        BTNode<Integer> newRoot = removeLeafNodes(root);
-//        printDetailedTreeRecursive(newRoot);
-
-//        System.out.println("Is Balanced : " + isBalanced(root));
-//        System.out.println("Is Balanced : " + isBalancedBetter(root).isBalanced);
-
-//        System.out.println("Diameter of the Tree: " + diameterOfBinaryTree(root));
-//        System.out.println("Diameter of the Tree: " + diameterOfBinaryTreeBetter(root).diameter + " and height : " + diameterOfBinaryTreeBetter(root).height);
-
-//        int[] inorder = {4,2,5,1,6,3};
-//        int[] preorder = {1,2,4,5,3,6};
-//
-//        BTNode<Integer> root = buildTreeUsingInPre(inorder, preorder, inorder.length);
-//        printDetailedTreeLevelWise(root);
-
-//        createAndInsertDuplicateNode(root);
-//        printTreeLevelWise(root);
-        printTreeLevelWiseBetter(root);
-//        10 20 30 40 50 -1 60 -1 -1 -1 -1 -1 -1   - Dummy Input
-
-//        printRootToLeafPathSumToK(root, 13);
-
-//        ArrayList<Integer> path = givePathFromRootToX(root, 5);
-//        for(int i: path){
-//            System.out.println(i);
-//        }
-
-        ArrayList<SLLNode<Integer>> arr = btToLevelWiseLL(root);
-        for(SLLNode<Integer> head: arr){
-            LinkedListUse.print(head);
-        }
     }
 
     public static BTNode<Integer> removeLeafNodes(BTNode<Integer> root) {
@@ -398,74 +395,31 @@ public class BTUse {
         return new IsBalancedReturn(height, isBal);
     }
 
-    public static int diameterOfBinaryTree(BTNode<Integer> root) {
+    // Not give correct height in case of Not Balanced Tree
+    public static IsBalancedReturn isBalancedBetterImproved(BTNode<Integer> root){
         if(root == null){
-            return 0;
+            return new IsBalancedReturn(0,true);
         }
 
-        int option1 = height(root.left) + height(root.right);
-        int option2 = diameterOfBinaryTree(root.left);
-        int option3 = diameterOfBinaryTree(root.right);
-
-        return Math.max(option1, Math.max(option2, option3));
-    }
-
-    public static DiameterReturn diameterOfBinaryTreeBetter(BTNode<Integer> root) {
-        if(root == null){
-            return new DiameterReturn(0,0);
+        IsBalancedReturn leftOutput = isBalancedBetterImproved(root.left);
+        if(!leftOutput.isBalanced){
+            return leftOutput;
         }
+        IsBalancedReturn rightOutput = isBalancedBetterImproved(root.right);
 
-        DiameterReturn leftOutput = diameterOfBinaryTreeBetter(root.left);
-        DiameterReturn rightOutput = diameterOfBinaryTreeBetter(root.right);
-
-        int height = 1 + Math.max(leftOutput.height, rightOutput.height);
-        int diameter = Math.max(leftOutput.height + rightOutput.height, Math.max(leftOutput.diameter, rightOutput.diameter));
-
-        return new DiameterReturn(height, diameter);
-    }
-
-    private static BTNode<Integer> buildTreeUsingInPreHelper(int inorder[], int preorder[], int siIn, int eiIn, int siPre, int eiPre){
-        if(siIn > eiIn){
-            return null;
+        if(!rightOutput.isBalanced){
+            return rightOutput;
         }
-        int rootData = preorder[siPre];
-        BTNode<Integer> root = new BTNode<>(rootData);
-        // search rootData in inOrder and find the index;
-        int rootIndex = -1;
-        for(int i = siIn; i<=eiIn; i++){
-            if(inorder[i] == rootData){
-                rootIndex = i;
-                break;
-            }
+        if(Math.abs(leftOutput.height - rightOutput.height) > 1){
+            leftOutput.isBalanced = false;
+            return leftOutput;
         }
-        // finding range of inorder and preorder for left subtree and right subtree
-        int siInLeft = siIn;
-        int eiInLeft = rootIndex-1;
-        int siPreLeft = siPre + 1;
-        int siInRight = rootIndex+1;
-        int eiInRight = eiIn;
-        int eiPreRight = eiPre;
-
-        int leftSubTreeLength = eiInLeft - siInLeft + 1;
-
-        int eiPreLeft = siPreLeft + leftSubTreeLength - 1;
-        int siPreRight = eiPreLeft + 1;
-
-        root.left = buildTreeUsingInPreHelper(inorder, preorder, siInLeft ,eiInLeft, siPreLeft, eiPreLeft);
-        root.right = buildTreeUsingInPreHelper(inorder, preorder, siInRight ,eiInRight, siPreRight, eiPreRight);
-
-        return root;
-    }
-
-    public static BTNode<Integer> buildTreeUsingInPre(int inorder[], int preorder[], int n) {
-        return buildTreeUsingInPreHelper(inorder, preorder, 0, n-1, 0, n-1);
-
-//        1.find root using preorder[0]
-//        2.find the pre & in of left subtree & the right subtree
-//        3.Ask recurion to build leftSubtree and rightSubtree
+        leftOutput.height = 1 + Math.max(leftOutput.height, rightOutput.height);
+        return leftOutput;
     }
 
     // not need to return new head because head will never change as duplicate node is always connect to left
+    // using subproblem soln solving main problem
     public static void createAndInsertDuplicateNode(BTNode<Integer> root){
         if(root == null){
             return;
@@ -480,57 +434,23 @@ public class BTUse {
         rootDuplicate.left = leftTemp;
     }
 
-    public static void printRootToLeafPathSumToK(BTNode<Integer> root, int k){
-        printRootToLeafPathSumToKHelper(root, "", k);
-    }
-
-    private static void printRootToLeafPathSumToKHelper(BTNode<Integer> root, String path, int k) {
+    // doing own work at each step
+    public static void createAndInsertDuplicateNode1(BTNode<Integer> root){
         if(root == null){
             return;
         }
-        if(root.left == null && root.right == null && root.data == k){
-            System.out.println(path + root.data);
-        }
-        int smallK = k - root.data;
-        printRootToLeafPathSumToKHelper(root.left, path+root.data+" ", smallK);
-        printRootToLeafPathSumToKHelper(root.right, path+root.data+" ", smallK);
+        BTNode<Integer> rootDuplicate = new BTNode<>(root.data);
+        BTNode<Integer> left = root.left;
+        root.left = rootDuplicate;
+        rootDuplicate.left = left;
 
+        createAndInsertDuplicateNode1(left);
+        createAndInsertDuplicateNode1(root.right);
     }
-
-
-    // return an array list containing the path from root to x
-    public static ArrayList<Integer> givePathFromRootToX(BTNode<Integer> root, int x){
-        // Base Case
-        if(root == null){
-            return null;
-        }
-        if(root.data == x){
-            ArrayList<Integer> path = new ArrayList<>();
-            path.add(root.data);
-            return path;
-        }
-        ArrayList<Integer> path = givePathFromRootToX(root.left, x);
-        if(path != null){
-            path.add(root.data);
-            return path;
-        }
-        path = givePathFromRootToX(root.right, x);
-        if(path != null){
-            path.add(root.data);
-            return path;
-        }
-        return null;
-    }
-
-    // TODO: Assignment BT Q5
-    //  print/return all nodes distance k from the given node
-    // Try to do with two approaches as in hint video
-
 
 
     // BST2 Assignment Q1:
     //    Given a binary tree, write code to create a separate linked list for each level. You need to return the array which contains head of each level linked list.
-
     public static ArrayList<SLLNode<Integer>> btToLevelWiseLL(BTNode<Integer> root){
         // Edge case
         if(root == null){
@@ -583,5 +503,116 @@ public class BTUse {
         }
         return ans;
     }
+
+    public static boolean isPresent(BTNode<Integer> root, int x) {
+        if(root == null) return false;
+        if(root.data == x) return true;
+        return isPresent(root.left, x) || isPresent(root.right, x);
+    }
+
+    //    LCA Of Binary tree
+    public static int getLCANaive(BTNode<Integer> root, int a, int b){
+        int[] lca = new int[1];
+        lca[0] = -1;
+        getLCANaiveHelper(root, a, b, lca);
+        return lca[0];
+    }
+    private static void getLCANaiveHelper(BTNode<Integer> root, int a, int b, int[] lca) {
+        if(root == null){
+            return;
+        }
+        if(isPresent(root, a) && isPresent(root, b)){
+            lca[0] = root.data;
+        }
+        getLCANaiveHelper(root.left, a, b, lca);
+        getLCANaiveHelper(root.right, a, b, lca);
+    }
+
+    // optimised
+    // give correct ans only both nodes are present in the tree
+    private static BTNode<Integer> getLCAHelper(BTNode<Integer> root, int a, int b){
+        if(root == null || root.data == a || root.data == b){
+            return root;
+        }
+
+        BTNode<Integer> leftOutput = getLCAHelper(root.left, a, b);
+        BTNode<Integer> rightOutput = getLCAHelper(root.right, a, b);
+
+        if(leftOutput != null && rightOutput != null){
+            return root;
+        }
+//        If out of 2 nodes only one node is present, return that node.
+        else if (leftOutput != null) {
+            return leftOutput;
+        }
+        return rightOutput;
+
+    }
+
+    public static int getLCA(BTNode<Integer> root, int a, int b){
+        BTNode<Integer> ansNode = getLCAHelper(root, a, b);
+        return (ansNode == null) ? -1: ansNode.data;
+    }
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+//        BTNode<Integer> root = takeTreeInput(sc);
+//        BTNode<Integer> root = takeTreeInput1(sc);
+        BTNode<Integer> root = takeTreeInputLevelWise(); // Dummy value : 1 2 3 4 -1 -1 5 -1 -1 -1 -1
+
+//        System.out.println(getLCA(root, sc.nextInt(), sc.nextInt())); // 20 8 22 4 12 -1 -1 -1 -1 10 14 -1 -1 -1 -1
+        System.out.println(getLCANaive(root, sc.nextInt(), sc.nextInt()));
+
+//        for(List<Integer> level: giveTreeAsLevelOrder(root)){
+//            System.out.println(level);
+//        }
+
+//        BTNode<Integer> root = takeTreeInput1Better(sc, true, 0,false);
+//        printDetailedTreeRecursive(root);
+//        printDetailedTreeLevelWise(root);
+//        System.out.println("Num of Nodes in the Tree : " + numNodes(root));
+//        System.out.println("Num of leaf nodes : " + leafCount(root));
+
+//        printTreePreOrder(root);
+//        System.out.println();
+//        printTreePostOrder(root);
+//        printTreeInOrder(root);
+
+//        System.out.println("Largest in the Tree: "+ largest(root));
+//        System.out.println("Num of nodes greater than 5 : " + nodesGreaterThanX(root, 5));
+
+//        System.out.println("Tree Height : " + height(root));
+
+//        printNodesAtDepthK(root, 1);
+//        System.out.println();
+
+//        printNodesWithoutSibling(root);
+
+//        BTNode<Integer> newRoot = removeLeafNodes(root);
+//        printDetailedTreeRecursive(newRoot);
+
+//        System.out.println("Is Balanced : " + isBalanced(root));
+//        System.out.println("Is Balanced : " + isBalancedBetter(root).isBalanced);
+
+
+
+
+//        createAndInsertDuplicateNode(root);
+//        printDetailedTreeLevelWise(root);
+//        createAndInsertDuplicateNode1(root);
+//        printDetailedTreeLevelWise(root);
+
+//        printTreeLevelWiseBetter(root);
+//        10 20 30 40 50 -1 60 -1 -1 -1 -1 -1 -1   - Dummy Input
+
+
+
+//        ArrayList<SLLNode<Integer>> arr = btToLevelWiseLL(root);
+//        for(SLLNode<Integer> head: arr){
+//            LinkedListUse.print(head);
+//        }
+    }
+
 
 }

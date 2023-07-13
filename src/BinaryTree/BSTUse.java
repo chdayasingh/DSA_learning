@@ -58,6 +58,17 @@ public class BSTUse {
         }
         return minimum(root.left);
     }
+    public static int maximum(BTNode<Integer> root){
+//        Edge Case
+        if(root == null){
+            return -1;
+        }
+//        Base Case
+        if(root.right == null){
+            return root.data;
+        }
+        return maximum(root.right);
+    }
 
     // Time complexity - O(n*h)
     public static boolean isBST(BTNode<Integer> root){
@@ -68,7 +79,7 @@ public class BSTUse {
         if(root.data <= leftMax){
             return false;
         }
-        int rightMin = minimum(root.right);
+        int rightMin = BTUse.smallest(root.right);
         if(root.data > rightMin){
             return false;
         }
@@ -155,32 +166,23 @@ public class BSTUse {
         return bstToLLHelper(root).head;
     }
 
-    private static BTNode<Integer> getLCAHelper(BTNode<Integer> root, int a, int b){
-        if(root == null || root.data == a || root.data == b){
-            return root;
+//    T.C = O(h)
+    public static int lcaInBst(BTNode<Integer> root, int a, int b){
+        if(root == null) return -1;
+
+        if(a < root.data && b < root.data){
+            return lcaInBst(root.left, a, b);
         }
-
-        BTNode<Integer> leftOutput = getLCAHelper(root.left, a, b);
-        BTNode<Integer> rightOutput = getLCAHelper(root.right, a, b);
-
-        if(leftOutput != null && rightOutput != null){
-            return root;
+        if(a > root.data && b > root.data){
+            return lcaInBst(root.right, a, b);
         }
-//        If out of 2 nodes only one node is present, return that node.
-        else if (leftOutput != null) {
-            return leftOutput;
-        }
-        return rightOutput;
-
-    }
-
-    public static int getLCA(BTNode<Integer> root, int a, int b){
-        BTNode<Integer> ansNode = getLCAHelper(root, a, b);
-        return (ansNode == null) ? -1: ansNode.data;
+        return root.data;
     }
 
     // TODO: Assignment: BTS1 q3
     // Replace with sum of greater nodes
+    // Done in Leetcode
+
 
 
     public static ArrayList<Integer> givePathFromRootToXInBST(BTNode<Integer> root, int x){
@@ -210,8 +212,6 @@ public class BSTUse {
         return null;
     }
 
-
-
     public static int bstHeight(BTNode<Integer> root){
         if(root == null){
             return 0;
@@ -222,7 +222,7 @@ public class BSTUse {
     }
 
 
-//    Time complexity - O(n*n)
+//    Time complexity - O(n*h)
     public static int largestBSTHeight(BTNode<Integer> root){
         if(root == null){
             return 0;
@@ -290,7 +290,6 @@ public class BSTUse {
 //        Node<Integer> head = bstToLL(root);
 //        printLinkedList(head);
 
-//        System.out.println(getLCA(root, 2, 10));
 
 //        ArrayList<Integer> path = givePathFromRootToXInBST(root, 2);
 //        for(int i: path){

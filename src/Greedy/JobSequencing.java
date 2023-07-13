@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 // apna clg- greedy v10
+
+// cal max profit
+// each job take 1 unit of time
+
 public class JobSequencing {
 
     // static class- because this is inner class, so we cannot instantiate without parent class therefore to directly instantiate we created this static class

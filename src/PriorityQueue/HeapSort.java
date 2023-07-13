@@ -1,20 +1,19 @@
 package PriorityQueue;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 public class HeapSort {
-    // sorted array can be formed easily using MinPriority Queue by creating a heap using array and remove element one by one and put onto original array
+
+    // sorted array can be formed easily using MinPriority Queue (or Heap class) by creating a heap using array and remove element one by one and put onto original array
     // TC- O(nlogn) SC- O(n)
+
     // to optimise space we are using inplace heap sort , in which we build heap inside the original array
     // In inplace heap sort SC- O(1)
 
-    // give sorted array in descending order
 
-
-    public static void buildHeapInNLogN(int[] arr){
-        // build heap in same array
-        // O(nlogn)
+    // build heap in same array
+    // O(nlogn)
+    public static void buildHeapUsingUpHeapify(int[] arr){
         for(int i=1; i< arr.length; i++){
             int childIndex = i;
             int parentIndex = (childIndex-1)/2;
@@ -71,22 +70,22 @@ public class HeapSort {
         }
     }
 
-    public static void buildHeap(int[] arr){
+    // T.C = O(n)
+    public static void buildHeapUsingDownHeapify(int[] arr){
         int n = arr.length;
 
-        // downheapify(i,n) from last leafnode to root(first leafnode)
+        // downheapify(i,n) from last non-leafnode to root(first non-leafnode)
 
         for(int i=(n/2)-1; i>=0; i--){
             downHeapify(arr, i, n);
         }
-        System.out.println(Arrays.toString(arr));
+//        System.out.println(Arrays.toString(arr));
     }
 
     public static void inplaceHeapSort(int[] arr){
         // Build Heap
-//        buildHeapInNLogN(arr);
-        buildHeap(arr);
-
+//        buildHeapUsingUpHeapify(arr);
+        buildHeapUsingDownHeapify(arr);
 
 //        System.out.println(Arrays.toString(arr));
 
@@ -107,7 +106,5 @@ public class HeapSort {
         System.out.println(Arrays.toString(arr));
         inplaceHeapSort(arr);
         System.out.println(Arrays.toString(arr));
-
-
     }
 }

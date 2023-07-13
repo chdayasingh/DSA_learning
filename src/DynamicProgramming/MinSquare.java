@@ -17,12 +17,6 @@ public class MinSquare {
     }
 
     public static int minSquareToRepresentN(int n){
-//        double x = Math.sqrt(n);
-//        if(x%1 == 0){
-//            // means n is perfect square
-//            return 1;
-//        };
-
         if(n == 0){
             return 0;
         }

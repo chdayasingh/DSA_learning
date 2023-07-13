@@ -139,7 +139,7 @@ public class LinkedListUse {
         return head;
     }
 
-    public static SLLNode<Integer> reverseLinkedList(SLLNode<Integer> head) {
+    public static SLLNode<Integer> reverseI(SLLNode<Integer> head) {
         SLLNode<Integer> curr = head;
         SLLNode<Integer> prev = null;
         SLLNode<Integer> fwd = null;

@@ -3,6 +3,16 @@ package HashMap;
 import java.util.ArrayList;
 
 public class Map<K, V> {
+    private static class MapNode<K, V> {
+        private K key;
+        private V value;
+        private MapNode<K, V> next;
+
+        public MapNode(K key, V value){
+            this.key = key;
+            this.value = value;
+        }
+    }
     private ArrayList<MapNode<K, V>> buckets;
     private int size;
     private int numBuckets;
@@ -67,13 +77,13 @@ public class Map<K, V> {
             while(head != null){
                 K key = head.key;
                 V val = head.value;
-                insert(key, val);
+                put(key, val);
                 head = head.next;
             }
         }
 
     }
-    public void insert(K key, V value){
+    public void put(K key, V value){
         // grabing the int index for key
         int bucketIndex = getBucketIndex(key);
         // store previous value at that index to head;
@@ -101,7 +111,7 @@ public class Map<K, V> {
         }
     }
 
-    public V getValue(K key){
+    public V get(K key){
         int bucketIndex = getBucketIndex(key);
 //        grabing the head of the linkedList
         MapNode<K, V> head = buckets.get(bucketIndex);
@@ -115,7 +125,7 @@ public class Map<K, V> {
     }
 
     public V getValueOrDefault(K key, V defaultVal){
-        V val = getValue(key);
+        V val = get(key);
         if(val == null){
             val = defaultVal;
         }

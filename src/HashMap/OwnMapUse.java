@@ -8,7 +8,7 @@ public class OwnMapUse {
         int N = 10;
         for(int i=0; i<alphabets.length(); i++, N++){
             char ch = alphabets.charAt(i);
-            map1.insert(ch, N);
+            map1.put(ch, N);
             System.out.println(map1.getLoadFactor());
         }
 

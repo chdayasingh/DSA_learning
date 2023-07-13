@@ -1,5 +1,7 @@
 package BinaryTree;
 
+import java.util.ArrayList;
+
 public class BST {
     private BTNode<Integer> root;
     private int size;
@@ -26,12 +28,12 @@ public class BST {
         return isPresentHelper(root.right, x);
     }
 
+    // Non static
     public void insert(int x){
         size++;
         this.root = insertHelper1(root, x);
     }
 
-    // TODO : Calculate the time complexity of below func
     private void insertHelper(BTNode<Integer> root, int x) {
         if(root == null){
             this.root = new BTNode<>(x);
@@ -127,6 +129,7 @@ public class BST {
             }
 //            case 4.c : if root has both children i.e left and right are not null
             else{
+                // find root replacement
                 // find min from right subtree and replace with root data to remain the tree as bst
                 int rightMinimum = minimum(root.right);
                 root.data = rightMinimum;
@@ -140,12 +143,29 @@ public class BST {
         }
     }
 
-
     public void printTree(){
         BTUse.printDetailedTreeLevelWise(root);
 //        BTUse.printTreeLevelWiseBetter(root);
     }
 
+    public ArrayList<Integer> giveElementsInRange(int k1, int k2){
+        return giveElementsInRangeHelper(root, k1, k2);
+    }
 
-
+    private ArrayList<Integer> giveElementsInRangeHelper(BTNode<Integer> root, int k1, int k2) {
+        if(root == null){
+            return new ArrayList<>();
+        }
+        if(k1 > root.data){
+            return giveElementsInRangeHelper(root.right, k1, k2);
+        }
+        if(k2 < root.data){
+            return giveElementsInRangeHelper(root.left, k1, k2);
+        }
+        ArrayList<Integer> left = giveElementsInRangeHelper(root.left, k1, k2);
+        ArrayList<Integer> right = giveElementsInRangeHelper(root.right, k1, k2);
+        left.add(root.data);
+        left.addAll(right);
+        return left;
+    }
 }

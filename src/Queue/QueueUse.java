@@ -2,7 +2,7 @@ package Queue;
 
 public class QueueUse {
     public static void main(String[] args) throws QueueEmptyException{
-        QueueUsingLL<Integer> q2 = new QueueUsingLL<>();
+//        QueueUsingLL<Integer> q2 = new QueueUsingLL<>();
 
 //        for(int i=1; i<=10; i++){
 //            q2.enqueue(i*10);
@@ -11,23 +11,23 @@ public class QueueUse {
 //            System.out.println(q2.dequeue());
 //        }
 
-        q2.enqueue(10);
-        q2.enqueue(20);
-        q2.dequeue();
-        q2.dequeue();
-        q2.enqueue(30);
-        q2.enqueue(40);
-        while(!q2.isEmpty()){
-            System.out.println(q2.dequeue());
-        }
-
-
-//        DynamicQueueUsingArray q1 = new DynamicQueueUsingArray(4);
-//
-//        for(int i=1; i<=4; i++){
-//            q1.enqueue(i);
-//            q1.print();
+//        q2.enqueue(10);
+//        q2.enqueue(20);
+//        q2.dequeue();
+//        q2.dequeue();
+//        q2.enqueue(30);
+//        q2.enqueue(40);
+//        while(!q2.isEmpty()){
+//            System.out.println(q2.dequeue());
 //        }
+
+
+        DynamicQueueUsingArray q1 = new DynamicQueueUsingArray(4);
+
+        for(int i=1; i<=10; i++){
+            q1.enqueue(i);
+            System.out.println(q1);
+        }
 //        q1.dequeue();
 //        q1.print();
 //        q1.dequeue();
@@ -44,10 +44,10 @@ public class QueueUse {
 //        }
 
 //        StaticQueueUsingArray q = new StaticQueueUsingArray(5);
-
+//
 //        for(int i=1; i<=3; i++){
 //            q.enqueue(i);
-//            System.out.println(i + " is enqueue");
+////            System.out.println(i + " is enqueue");
 ////            System.out.println("size : " + q.size());
 ////            System.out.println("front : " + q.front());
 ////            System.out.println();
